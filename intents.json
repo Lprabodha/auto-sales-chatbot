@@ -1,0 +1,89 @@
+{
+    "intents": [
+      {
+        "tag": "vehicle_price_inquiry",
+        "patterns": [
+          "What is the price of the Honda Hornet?",
+          "How much is a 2023 Toyota Raize?",
+          "Price of MG MG4 X?",
+          "Tell me the cost of the bike",
+          "Give me the car price"
+        ],
+        "responses": [
+          "The price depends on the vehicle listing. For example, a 2023 Toyota Raize is listed at Rs 13,500,000, and a 2014 Honda Hornet is listed at Rs 1,510,000. Let me know which vehicle you're interested in!"
+        ]
+      },
+      {
+        "tag": "vehicle_availability",
+        "patterns": [
+          "Is the Honda Hornet available?",
+          "Do you have the MG4 X Icon for sale?",
+          "What vehicles are currently available in Galle?",
+          "Any new car listings today?"
+        ],
+        "responses": [
+          "Yes, we have recent listings such as the Honda Hornet 2014 and the MG MG4 X 2024. You can view available vehicles by category (Cars, Motorcycles) and location."
+        ]
+      },
+      {
+        "tag": "contact_seller",
+        "patterns": [
+          "How can I contact the seller?",
+          "What is the phone number for the Toyota Raize?",
+          "Can I call the seller directly?",
+          "Give me seller contact info"
+        ],
+        "responses": [
+          "Some listings include phone numbers. For example, if available, it will be shown on the vehicle page. If the number is hidden, you may have to contact through the platform or send a message request."
+        ]
+      },
+      {
+        "tag": "filter_by_location",
+        "patterns": [
+          "Show me bikes in Colombo",
+          "List available cars in Galle",
+          "What are the motorcycles listed from Kandy?",
+          "Filter vehicles by location"
+        ],
+        "responses": [
+          "Sure! You can filter listings by city. Recent vehicles include a MG MG4 X in Galle and various bikes in Colombo. Let me know the type and location you're interested in."
+        ]
+      },
+      {
+        "tag": "vehicle_condition",
+        "patterns": [
+          "Is the Toyota Raize brand new?",
+          "Tell me the condition of the Honda Hornet",
+          "Is this vehicle used or reconditioned?",
+          "How old is the MG MG4 X?"
+        ],
+        "responses": [
+          "The Toyota Raize is marked as Reconditioned (2023 model). The Honda Hornet is a Used 2014 model. The MG MG4 X is a 2024 Used vehicle. You can check condition and year on the listing page."
+        ]
+      },
+      {
+        "tag": "vehicle_types",
+        "patterns": [
+          "Do you sell bikes and cars?",
+          "I want a scooter",
+          "List SUV vehicles",
+          "Do you have automatic transmission vehicles?"
+        ],
+        "responses": [
+          "Yes! We list Motorcycles (including scooters), Cars, SUVs, and more. You can also filter by transmission, like automatic or manual."
+        ]
+      },
+      {
+        "tag": "vehicle_features",
+        "patterns": [
+          "Does the MG MG4 have 360 camera?",
+          "What features are included in the Toyota Raize?",
+          "Show specs of the MG Icon Long Range",
+          "Tell me about safety features"
+        ],
+        "responses": [
+          "The MG MG4 X Icon Long Range includes features like 360 camera, adaptive cruise control, wireless charging, lane keeping assist, and more. Specs are shown in the description section of each listing."
+        ]
+      }
+    ]
+  }

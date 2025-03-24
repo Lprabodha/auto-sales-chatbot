@@ -1,0 +1,11 @@
+numpy
+pandas
+scikit-learn
+beautifulsoup4
+requests
+nltk
+pymongo
+python-dotenv
+fastapi
+xgboost
+selenium
