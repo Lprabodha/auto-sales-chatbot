@@ -39,7 +39,6 @@ class ChatbotModel(nn.Module):
         x = self.fc3(x)
         return x
 
-# Chatbot Assistant
 class ChatbotAssistant:
     def __init__(self, intents_path, function_mappings=None):
         self.model = None
@@ -52,6 +51,7 @@ class ChatbotAssistant:
         self.X = None
         self.y = None
 
+    @staticmethod
     def tokenize_and_lemmatize(self, text):
         lemmatizer = nltk.WordNetLemmatizer()
         words = nltk.word_tokenize(text.lower())
