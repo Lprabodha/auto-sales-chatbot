@@ -1,11 +1,7 @@
-numpy
-pandas
-scikit-learn
-beautifulsoup4
-requests
+torch
 nltk
+numpy
 pymongo
 python-dotenv
-fastapi
-xgboost
-selenium
+sqlalchemy
+pymysql
