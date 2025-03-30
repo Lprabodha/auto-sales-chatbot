@@ -1,121 +1,102 @@
 {
-  "language": "en-si-ta",
-  "version": "1.0",
-  "description": "Vehicle assistant chatbot intents for Sri Lanka with dynamic price, availability, and contact support.",
-  "confidence_threshold": 0.75,
   "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["hi", "hello", "hey", "good morning", "good afternoon"],
+      "responses": ["Hello! How can I help you with vehicles today?", "Hi there! Looking for a car or motorcycle?"]
+    },
     {
       "tag": "vehicle_price_inquiry",
       "patterns": [
-        "What is the price of the Honda Hornet?",
-        "How much is a 2023 Toyota Raize?",
-        "Price of MG MG4 X?",
-        "Tell me the cost of the bike",
-        "Give me the car price",
-        "මට MG4 එකේ මිල දැනගන්න ඕනේ",
-        "MG4 விலை என்ன?"
+        "price of a car",
+        "how much for a bike",
+        "what's the cost of",
+        "price range for",
+        "how much does it cost",
+        "what's the price"
       ],
-      "responses": [
-        "The price for {vehicle_name} is {price}.",
-        "For example, the 2023 Toyota Raize is Rs 13,500,000 and the Honda Hornet 2014 is Rs 1,510,000."
-      ]
+      "responses": [],
+      "follow_up": {
+        "prompt": "Which vehicle are you interested in? (e.g., 'Honda PCX 125' or 'Suzuki Swift')",
+        "expected_entities": ["brand", "model"]
+      }
     },
     {
       "tag": "vehicle_availability",
       "patterns": [
-        "Is the Honda Hornet available?",
-        "Do you have the MG4 X Icon for sale?",
-        "What vehicles are currently available in Galle?",
-        "Any new car listings today?",
-        "මට ගාල්ලේ තියෙන වාහන බලන්න ඕනෙ",
-        "இன்று புதிய வாகனங்கள் உள்ளதா?"
+        "do you have",
+        "is available",
+        "any bikes",
+        "cars in stock",
+        "available vehicles",
+        "what's in stock"
       ],
-      "responses": [
-        "Yes, we have listings like the Honda Hornet 2014 and MG MG4 X 2024.",
-        "New vehicles are listed daily. You can browse by city or type."
-      ]
+      "responses": [],
+      "follow_up": {
+        "prompt": "Which type of vehicle are you looking for? (e.g., 'Honda motorcycles' or 'Suzuki cars')",
+        "expected_entities": ["brand", "vehicle_type"]
+      }
     },
     {
       "tag": "contact_seller",
       "patterns": [
-        "How can I contact the seller?",
-        "What is the phone number for the Toyota Raize?",
-        "Can I call the seller directly?",
-        "Give me seller contact info",
-        "ඇඳුම් අයෙකුගේ අංකය තියෙද?",
-        "விற்பனையாளர் தொடர்பு எண் என்ன?"
+        "contact seller",
+        "how to reach",
+        "seller details",
+        "phone number",
+        "contact information",
+        "how to contact"
       ],
-      "responses": [
-        "The contact number for {vehicle_name} is {phone_number}.",
-        "If available, the phone number will be shown on the listing page. Otherwise, use the message option."
-      ]
+      "responses": [],
+      "follow_up": {
+        "prompt": "Which vehicle's seller would you like to contact?",
+        "expected_entities": ["brand", "model"]
+      }
     },
     {
       "tag": "filter_by_location",
       "patterns": [
-        "Show me bikes in Colombo",
-        "List available cars in Galle",
-        "What are the motorcycles listed from Kandy?",
-        "Filter vehicles by location",
-        "මට කන්දියේ තියෙන බයික් වල ලැයිස්තුවක් දෙන්න",
-        "கண்டியில் உள்ள வாகனங்களை காண்பிக்கவும்"
+        "vehicles in",
+        "cars near me",
+        "bikes in",
+        "available in",
+        "show me vehicles in",
+        "what's available in"
       ],
-      "responses": [
-        "Sure! Galle has a MG MG4 X, Colombo has Honda scooters. You can filter by city easily.",
-        "Tell me what type and location you're looking for, and I’ll help!"
-      ]
+      "responses": [],
+      "follow_up": {
+        "prompt": "Which location are you interested in? (e.g., 'Colombo', 'Kandy')",
+        "expected_entities": ["location"]
+      }
     },
     {
-      "tag": "vehicle_condition",
+      "tag": "vehicle_details",
       "patterns": [
-        "Is the Toyota Raize brand new?",
-        "Tell me the condition of the Honda Hornet",
-        "Is this vehicle used or reconditioned?",
-        "How old is the MG MG4 X?",
-        "වාහනය ලියාපදිංචි කරලාද?",
-        "இந்த வாகனம் புதியதா அல்லது பயன்படுத்தப்பட்டதா?"
+        "specs of",
+        "details about",
+        "features of",
+        "tell me about",
+        "information on",
+        "what's included in"
       ],
-      "responses": [
-        "The {vehicle_name} is a {condition} vehicle, manufactured in {model_year}.",
-        "Check the description for more info on year and condition."
-      ]
+      "responses": [],
+      "follow_up": {
+        "prompt": "Which vehicle would you like details about?",
+        "expected_entities": ["brand", "model"]
+      }
     },
     {
-      "tag": "vehicle_types",
-      "patterns": [
-        "Do you sell bikes and cars?",
-        "I want a scooter",
-        "List SUV vehicles",
-        "Do you have automatic transmission vehicles?",
-        "ඔයාලට SUV තියෙනවද?",
-        "நீங்கள் ஸ்கூட்டர்களை விற்கிறீர்களா?"
-      ],
-      "responses": [
-        "Yes, we list bikes, scooters, cars, SUVs, and more.",
-        "You can filter by transmission type or fuel type too!"
-      ]
-    },
-    {
-      "tag": "vehicle_features",
-      "patterns": [
-        "Does the MG MG4 have 360 camera?",
-        "What features are included in the Toyota Raize?",
-        "Show specs of the MG Icon Long Range",
-        "Tell me about safety features",
-        "මෙහි Cruise Control තියෙනවද?",
-        "360 கேமரா உண்டா?"
-      ],
-      "responses": [
-        "The MG MG4 X has 360° camera, cruise control, wireless charging, and lane assist. More specs are on the description section.",
-        "You can check all features in the listing details."
-      ]
+      "tag": "goodbye",
+      "patterns": ["bye", "goodbye", "see you", "quit", "exit"],
+      "responses": ["Thank you for visiting! Come back if you need any vehicle information.", "Goodbye! Safe travels!"]
     },
     {
       "tag": "fallback",
       "patterns": [],
       "responses": [
-        "Sorry, I didn’t get that. You can ask me about prices, contact details, or availability.",
-        "I'm not sure what you meant. Try something like 'What's the price of the Honda Hornet?'"
+        "I'm not sure I understand. Could you rephrase that?",
+        "I'm still learning about vehicles. Could you ask differently?",
+        "Did you mean to ask about vehicle prices, availability, or specifications?"
       ]
     }
   ]

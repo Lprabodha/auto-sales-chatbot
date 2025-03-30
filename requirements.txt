@@ -3,5 +3,3 @@ nltk
 numpy
 pymongo
 python-dotenv
-sqlalchemy
-pymysql
