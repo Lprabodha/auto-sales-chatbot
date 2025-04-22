@@ -1,0 +1,114 @@
+[
+    {
+        "text": "Hi",
+        "intent": "greet"
+    },
+    {
+        "text": "Hello there!",
+        "intent": "greet"
+    },
+    {
+        "text": "Good morning",
+        "intent": "greet"
+    },
+    {
+        "text": "Bye",
+        "intent": "goodbye"
+    },
+    {
+        "text": "See you later",
+        "intent": "goodbye"
+    },
+    {
+        "text": "Thanks",
+        "intent": "thank"
+    },
+    {
+        "text": "Thank you so much",
+        "intent": "thank"
+    },
+    {
+        "text": "What is the price of Suzuki Swift?",
+        "intent": "vehicle_price_query"
+    },
+    {
+        "text": "How much does a Honda PCX cost?",
+        "intent": "vehicle_price_query"
+    },
+    {
+        "text": "Can you tell me the price of Toyota Premio?",
+        "intent": "vehicle_price_query"
+    },
+    {
+        "text": "Where is the Honda PCX located?",
+        "intent": "vehicle_location"
+    },
+    {
+        "text": "Which city has the Suzuki Swift?",
+        "intent": "vehicle_location"
+    },
+    {
+        "text": "In what year was the Honda PCX made?",
+        "intent": "vehicle_year"
+    },
+    {
+        "text": "When was the Suzuki Swift manufactured?",
+        "intent": "vehicle_year"
+    },
+    {
+        "text": "Tell me about cars",
+        "intent": "vehicle_info"
+    },
+    {
+        "text": "Show me some motorcycles",
+        "intent": "vehicle_info"
+    },
+    {
+        "text": "I want to buy a car",
+        "intent": "buy_intent"
+    },
+    {
+        "text": "I'm looking to purchase a motorbike",
+        "intent": "buy_intent"
+    },
+    {
+        "text": "Do you have electric bikes?",
+        "intent": "vehicle_fuel_type"
+    },
+    {
+        "text": "Are there any petrol vehicles?",
+        "intent": "vehicle_fuel_type"
+    },
+    {
+        "text": "Give me details of a car",
+        "intent": "vehicle_detail_request"
+    },
+    {
+        "text": "Provide full details about Honda PCX",
+        "intent": "vehicle_detail_request"
+    },
+    {
+        "text": "Tell me about Honda PCX",
+        "intent": "vehicle_detail_request"
+    },
+    {
+        "text": "What is the price of Suzuki Spacia?",
+        "intent": "vehicle_price_query"
+    },
+    {
+        "text": "Where is PCX located?",
+        "intent": "vehicle_location"
+    },
+    {
+        "text": "Car price in Colombo",
+        "intent": "vehicle_price_query"
+    },
+    {
+        "text": "Any motorbikes below 1.5 million?",
+        "intent": "vehicle_by_budget_query"
+    },
+    {
+        "text": "Colombo BMW under 50m",
+        "intent": "vehicle_by_budget_query"
+    }
+]

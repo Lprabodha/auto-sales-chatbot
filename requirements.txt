@@ -1,0 +1,9 @@
+torch
+scikit-learn
+nltk
+fastapi
+uvicorn
+pymongo
+fuzzywuzzy
+python-Levenshtein
+seaborn
