@@ -1,36 +1,45 @@
-# retrain_from_feedback.py
-
 import json
+import subprocess
 from pymongo import MongoClient
 from datetime import datetime
-import subprocess
+from sklearn.utils import shuffle
 
 client = MongoClient("mongodb+srv://lprabodha1998:SfXnuKZIecrv3TUJ@cluster0.e2m4j.mongodb.net/")
 db = client["vehicle_prices"]
 history = db["chat_history"]
 
-with open("data/intents.json", "r") as f:
+intents_path = "data/intents.json"
+
+with open(intents_path, "r") as f:
     current_intents = json.load(f)
 
+if isinstance(current_intents, dict) and "intents" in current_intents:
+    base_entries = [{"text": pat, "intent": i["tag"]} for i in current_intents["intents"] for pat in i.get("patterns", [])]
+else:
+    base_entries = [{"text": entry["text"], "intent": entry["intent"]} for entry in current_intents]
+
+existing_texts = set(e["text"] for e in base_entries)
+
 samples = []
-for item in history.find({"score": {"$gte": 1}}):
-    if item.get("user_message") and item.get("intent"):
-        samples.append({"text": item["user_message"], "intent": item["intent"]})
+for item in history.find({"score": {"$gte": 1}, "confidence": {"$gte": 0.5}}):
+    text = item.get("user_message")
+    intent = item.get("intent", "fallback_guess")
+    if text:
+        samples.append({"text": text.strip(), "intent": intent.strip()})
 
-existing_texts = set(entry["text"] for entry in current_intents)
 new_entries = [s for s in samples if s["text"] not in existing_texts]
-
 total_added = len(new_entries)
 
-if total_added > 0:
-    merged_intents = current_intents + new_entries
-    with open("data/intents.json", "w") as f:
-        json.dump(merged_intents, f, indent=2)
-    print(f"✅ Added {total_added} new training samples from feedback.")
+if total_added:
+    merged = base_entries + new_entries
+    merged = shuffle(merged, random_state=42)
+    with open(intents_path, "w") as f:
+        json.dump(merged, f, indent=2)
+    print(f"✅ Added {total_added} new training samples from MongoDB feedback.")
 else:
-    print("ℹ️ No new entries found to add.")
+    print("ℹ️ No new samples to add.")
 
-# Retrain the model
-print("🔄 Retraining the model with updated intents.json...")
-subprocess.call(["python", "train_bot.py"])
-print("✅ Model retrained and ready!")
+# Retrain model
+print("🔄 Running retrain pipeline...")
+subprocess.run(["python", "train_bot.py"])
+print("✅ Retraining complete. Model updated with feedback.")

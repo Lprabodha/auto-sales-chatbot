@@ -1,114 +1,198 @@
-[
-    {
-        "text": "Hi",
-        "intent": "greet"
-    },
-    {
-        "text": "Hello there!",
-        "intent": "greet"
-    },
-    {
-        "text": "Good morning",
-        "intent": "greet"
-    },
-    {
-        "text": "Bye",
-        "intent": "goodbye"
-    },
-    {
-        "text": "See you later",
-        "intent": "goodbye"
-    },
-    {
-        "text": "Thanks",
-        "intent": "thank"
-    },
-    {
-        "text": "Thank you so much",
-        "intent": "thank"
-    },
-    {
-        "text": "What is the price of Suzuki Swift?",
-        "intent": "vehicle_price_query"
-    },
-    {
-        "text": "How much does a Honda PCX cost?",
-        "intent": "vehicle_price_query"
-    },
-    {
-        "text": "Can you tell me the price of Toyota Premio?",
-        "intent": "vehicle_price_query"
-    },
-    {
-        "text": "Where is the Honda PCX located?",
-        "intent": "vehicle_location"
-    },
-    {
-        "text": "Which city has the Suzuki Swift?",
-        "intent": "vehicle_location"
-    },
-    {
-        "text": "In what year was the Honda PCX made?",
-        "intent": "vehicle_year"
-    },
-    {
-        "text": "When was the Suzuki Swift manufactured?",
-        "intent": "vehicle_year"
-    },
-    {
-        "text": "Tell me about cars",
-        "intent": "vehicle_info"
-    },
-    {
-        "text": "Show me some motorcycles",
-        "intent": "vehicle_info"
-    },
-    {
-        "text": "I want to buy a car",
-        "intent": "buy_intent"
-    },
-    {
-        "text": "I'm looking to purchase a motorbike",
-        "intent": "buy_intent"
-    },
-    {
-        "text": "Do you have electric bikes?",
-        "intent": "vehicle_fuel_type"
-    },
-    {
-        "text": "Are there any petrol vehicles?",
-        "intent": "vehicle_fuel_type"
-    },
-    {
-        "text": "Give me details of a car",
-        "intent": "vehicle_detail_request"
-    },
-    {
-        "text": "Provide full details about Honda PCX",
-        "intent": "vehicle_detail_request"
-    },
-    {
-        "text": "Tell me about Honda PCX",
-        "intent": "vehicle_detail_request"
-    },
-    {
-        "text": "What is the price of Suzuki Spacia?",
-        "intent": "vehicle_price_query"
-    },
-    {
-        "text": "Where is PCX located?",
-        "intent": "vehicle_location"
-    },
-    {
-        "text": "Car price in Colombo",
-        "intent": "vehicle_price_query"
-    },
-    {
-        "text": "Any motorbikes below 1.5 million?",
-        "intent": "vehicle_by_budget_query"
-    },
-    {
-        "text": "Colombo BMW under 50m",
-        "intent": "vehicle_by_budget_query"
-    }
-]
+{
+    "intents": [
+        {
+            "tag": "greet",
+            "patterns": [
+                "Hi",
+                "Hello there!",
+                "Good morning"
+            ],
+            "responses": [
+                "Hi there! \ud83d\udc4b",
+                "Hello! How can I assist you today?",
+                "Hey! Need help finding a car or bike?"
+            ]
+        },
+        {
+            "tag": "goodbye",
+            "patterns": [
+                "Bye",
+                "See you later"
+            ],
+            "responses": [
+                "Goodbye! Have a great day \ud83d\ude97",
+                "Take care! \ud83d\udc4b",
+                "See you next time!"
+            ]
+        },
+        {
+            "tag": "thank",
+            "patterns": [
+                "Thanks",
+                "Thank you so much"
+            ],
+            "responses": [
+                "You're welcome! \ud83d\ude0a",
+                "Glad I could help!",
+                "Anytime! Let me know if you need more assistance."
+            ]
+        },
+        {
+            "tag": "help",
+            "patterns": [
+                "Help",
+                "What can you do?",
+                "How does this work?",
+                "Show me commands"
+            ],
+            "responses": [
+                "I can help you find car or bike listings by price, location, year, or brand. Ask something like 'Toyota Vitz price' or 'cars under 3 million'."
+            ]
+        },
+        {
+            "tag": "vehicle_categories",
+            "patterns": [
+                "Do you have cars and bikes?",
+                "I want to buy a vehicle",
+                "List vehicles"
+            ],
+            "responses": [
+                "Yes! We support both cars and motorcycles. You can filter by brand, location, price, or year."
+            ]
+        },
+        {
+            "tag": "available_features",
+            "patterns": [
+                "What features can I ask about?",
+                "Which details do you provide?",
+                "What info do you give about vehicles?"
+            ],
+            "responses": [
+                "You can ask about price, location, engine capacity, fuel type, model year, and contact info for sellers."
+            ]
+        },
+        {
+            "tag": "vehicle_price_query",
+            "patterns": [
+                "What is the price of Suzuki Swift?",
+                "How much does a Honda PCX cost?",
+                "Can you tell me the price of Toyota Premio?",
+                "What is the price of Suzuki Spacia?",
+                "Car price in Colombo"
+            ],
+            "responses": []
+        },
+        {
+            "tag": "vehicle_location",
+            "patterns": [
+                "Where is the Honda PCX located?",
+                "Which city has the Suzuki Swift?",
+                "Where is PCX located?"
+            ],
+            "responses": []
+        },
+        {
+            "tag": "vehicle_year",
+            "patterns": [
+                "In what year was the Honda PCX made?",
+                "When was the Suzuki Swift manufactured?"
+            ],
+            "responses": []
+        },
+        {
+            "tag": "vehicle_info",
+            "patterns": [
+                "Tell me about cars",
+                "Show me some motorcycles"
+            ],
+            "responses": []
+        },
+        {
+            "tag": "buy_intent",
+            "patterns": [
+                "I want to buy a car",
+                "I'm looking to purchase a motorbike"
+            ],
+            "responses": []
+        },
+        {
+            "tag": "vehicle_fuel_type",
+            "patterns": [
+                "Do you have electric bikes?",
+                "Are there any petrol vehicles?"
+            ],
+            "responses": []
+        },
+        {
+            "tag": "vehicle_detail_request",
+            "patterns": [
+                "Give me details of a car",
+                "Provide full details about Honda PCX",
+                "Tell me about Honda PCX",
+                "Tell me about Toyota Allion",
+                "Details of Toyota Allion",
+                "Give me specs for Toyota Allion",
+                "What features does Toyota Allion have?",
+                "Full information on Toyota Allion"
+            ],
+            "responses": []
+        },
+        {
+            "tag": "vehicle_by_budget_query",
+            "patterns": [
+                "Any motorbikes below 1.5 million?",
+                "Colombo BMW under 50m"
+            ],
+            "responses": []
+        },
+        {
+            "tag": "vehicle_model_year_query",
+            "patterns": [
+                "2024 made cars",
+                "2023 model cars",
+                "Show me 2022 vehicles",
+                "I want a 2024 manufactured vehicle",
+                "Cars from the year 2023"
+            ]
+        },
+        {
+            "tag": "vehicle_brand_query",
+            "patterns": [
+                "Show me Honda cars",
+                "I want a Suzuki bike",
+                "Any Toyota vehicles?",
+                "Honda PCX",
+                "Suzuki Swift"
+            ],
+            "responses": []
+        },
+        {
+            "tag": "vehicle_type_query",
+            "patterns": [
+                "Show me SUVs",
+                "I want a sedan",
+                "Any hatchbacks available?",
+                "Motorcycles in stock"
+            ],
+            "responses": []
+        },
+        {
+            "tag": "seller_name_query",
+            "patterns": [
+                "Who is the seller?",
+                "What's the name of the seller?",
+                "Tell me the owner of this vehicle",
+                "Seller info",
+                "I want to know the seller name",
+                "Who's selling this?",
+                "Who owns the car?",
+                "Who is the owner?"
+            ],
+            "responses": [
+                "Sure! Let me check the seller name.",
+                "Here's the seller's information.",
+                "This vehicle is listed by the following seller."
+            ]
+        }
+    ]
+}

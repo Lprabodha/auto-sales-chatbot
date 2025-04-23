@@ -1,5 +1,3 @@
-# ai_chatbot_dynamic.py (chatbot_api.py upgraded)
-
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from pymongo import MongoClient
@@ -56,20 +54,25 @@ def chat(chat_input: ChatInput):
     input_tensor = torch.FloatTensor(vec.toarray())
     output = model(input_tensor)
     intent_idx = torch.argmax(output).item()
+    confidence = torch.softmax(output, dim=1)[0][intent_idx].item()
     intent = label_encoder.inverse_transform([intent_idx])[0]
 
-    prev = history_col.find_one({"user_message": query}, sort=[("score", -1)])
-    response = prev["bot_response"] if prev and prev.get("score", 0) > 0 else get_response(intent, query)
+    print(f"[DEBUG] Model guessed intent '{intent}' with confidence {confidence:.3f}")
+
+    response = get_response(intent, query)
 
     history_col.insert_one({
         "user_id": user_id,
         "user_message": query,
         "bot_response": response,
         "intent": intent,
+        "confidence": round(confidence, 3),
         "timestamp": datetime.utcnow(),
         "score": 0
     })
-    return {"response": response, "intent": intent}
+
+    return {"response": response, "intent": intent, "confidence": round(confidence, 3)}
+
 
 @app.post("/feedback/{doc_id}/{action}")
 def feedback(doc_id: str, action: str):
@@ -103,6 +106,12 @@ def extract_attributes(query):
 def fuzzy_match_location(query_location, db_location):
     return fuzz.partial_ratio(query_location.lower(), db_location.lower()) > 80
 
+def get_dynamic_keywords(field):
+    values = set()
+    for coll in ["cars", "motorcycles"]:
+        values.update(v.lower() for v in db[coll].distinct(field) if isinstance(v, str))
+    return list(values)
+
 def fetch_selected_details(query):
     attrs = extract_attributes(query)
     keyword = query.lower()
@@ -118,29 +127,32 @@ def fetch_selected_details(query):
                 if not attrs:
                     attrs = ["price", "location"]
                 for attr in attrs:
+                    if attr == "engine_capacity" and is_bike_related(query):
+                        continue 
+                    if attr == "transmission" and not is_bike_related(query):
+                        continue 
                     value = v.get(attr) or v.get("engine") if attr == "engine_capacity" else None
+                    if attr == "seller_name":
+                        value = v.get("seller_name", "Not listed")
+                        detail.append(f"Seller Name: {value}")
                     if value:
                         detail.append(f"{attr.replace('_', ' ').title()}: {value}")
-                detail.append(f"More Info: {v['ad_url']}")
-                results.append("\n".join(detail))
-    return "\n---\n".join(results[:5]) if results else "I couldn’t find the vehicle you're asking about."
 
-def get_dynamic_keywords(field):
-    values = set()
-    for coll in ["cars", "motorcycles"]:
-        values.update(v.lower() for v in db[coll].distinct(field) if isinstance(v, str))
-    return list(values)
+                detail.append(f"More Info: {v.get('ad_url', '')}")
+                results.append("\n".join(detail))
+    return "\n---\n".join(results[:5]) if results else "No matching vehicles found."
+
+def is_bike_related(query):
+    return any(w in query.lower() for w in ["bike", "motorbike", "motorcycle", "scooter"])
 
 def fetch_by_budget(query):
     numbers = re.findall(r"\d+", query.replace(",", ""))
     if not numbers:
         return "Please specify your budget clearly (e.g., 'under 5 million')."
     max_price = int(numbers[0]) * (1_000_000 if int(numbers[0]) < 1000 else 1)
-
     keyword = query.lower()
     brand_keywords = get_dynamic_keywords("brand_name")
     location_keywords = get_dynamic_keywords("location")
-
     matched_brand = next((b for b in brand_keywords if b in keyword), None)
     matched_location = next((l for l in location_keywords if l in keyword), None)
 
@@ -153,14 +165,11 @@ def fetch_by_budget(query):
                 continue
             if matched_location and matched_location not in loc:
                 continue
-
-            vehicle_name = v.get("vehicle_name", "Unnamed Vehicle")
+            name = v.get("vehicle_name", "Unnamed Vehicle")
             location = v.get("location", "Unknown Location")
             price = v.get("price", 0)
             url = v.get("ad_url", "")
-
-            found.append(f"{vehicle_name} – Rs. {price:,} in {location}\n🌐 {url}")
-
+            found.append(f"{name} – Rs. {price:,} in {location}\n🌐 {url}")
     return "\n\n".join(found[:5]) if found else "No vehicles found matching your query."
 
 def fetch_price_details(query):
@@ -178,32 +187,51 @@ def fetch_price_details(query):
                 results.append(f"{name} – Rs. {price:,} in {loc}\n🌐 {url}")
     return "\n\n".join(results[:5]) if results else "Sorry, I couldn't find that vehicle."
 
+def fetch_by_model_year(query):
+    match = re.search(r"\b(20\d{2})\b", query)
+    if not match:
+        return "Please specify a valid year like 2023 or 2024."
+    year = match.group(1)
+
+    results = []
+    for coll in ["cars", "motorcycles"]:
+        for v in db[coll].find({"model_year": year}):
+            name = v.get("vehicle_name", "Unnamed Vehicle")
+            price = v.get("price", 0)
+            loc = v.get("location", "Unknown")
+            url = v.get("ad_url", "")
+            results.append(f"{name} – Rs. {price:,} in {loc}\n🌐 {url}")
+
+    return "\n\n".join(results[:5]) if results else f"No vehicles found from {year}."
 
 def get_response(intent, query):
-    fallback = False
-    if intent not in ["vehicle_detail_request", "vehicle_price_query", "vehicle_location", "vehicle_by_budget_query"]:
-        fallback = True
+    import json
 
-    if fallback:
-        if "price" in query.lower():
-            intent = "vehicle_price_query"
-        elif "where" in query.lower() or "location" in query.lower():
-            intent = "vehicle_location"
-        elif re.search(r"under\\s+\\d+", query.lower()):
-            intent = "vehicle_by_budget_query"
-        else:
-            return "Sorry, I didn't understand. Try asking about a car, bike, price, or brand."
+    try:
+        with open("data/intents.json", "r") as f:
+            intent_data = json.load(f)
+        static_map = {i['tag']: i.get('responses', []) for i in intent_data['intents']}
+    except Exception as e:
+        static_map = {}
 
-    if intent == "vehicle_detail_request" or intent == "vehicle_price_query" or intent == "vehicle_location":
+    if intent in static_map and static_map[intent]:
+        return random.choice(static_map[intent])
+    if intent in ["vehicle_detail_request", "vehicle_price_query", "vehicle_location"]:
         return fetch_selected_details(query)
     elif intent == "vehicle_by_budget_query":
         return fetch_by_budget(query)
-    elif intent == "vehicle_price_query":
-        return fetch_price_details(query)
+    elif intent == "vehicle_model_year_query":
+        return fetch_by_model_year(query)
+    elif intent == "seller_name_query":
+        return fetch_selected_details(query) 
     elif intent == "thank":
         return "You're welcome! Let me know if you need more help."
     elif intent == "greet":
-        return random.choice(["Hi there! 👋", "Hello! How can I help with your vehicle search today?"])
+        return random.choice([
+            "Hi there! 👋",
+            "Hello! How can I help with your vehicle search today?",
+            "Welcome! Looking for a car or bike?"
+        ])
     
-    return "I'm not sure how to help with that yet."
+    return "Sorry, I didn't understand. Try asking about a vehicle's price, availability, or location."
 

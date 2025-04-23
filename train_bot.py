@@ -1,21 +1,18 @@
-# train_bot.py (patched with classification report fix)
-
 import torch
 import torch.nn as nn
-import json
 import pickle
-import nltk
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.preprocessing import LabelEncoder
-from nltk.corpus import stopwords, wordnet as wn
-from nltk.stem import WordNetLemmatizer
-from nltk.tokenize import word_tokenize
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
-import numpy as np
+import json
 import os
+import nltk
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from nltk.corpus import stopwords, wordnet as wn
+from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
 
 nltk.download('punkt')
 nltk.download('wordnet')
@@ -41,12 +38,18 @@ def preprocess(text):
         augmented.update(get_synonyms(w))
     return ' '.join(augmented)
 
-# Load dataset
-with open("data/intents.json", "r") as f:
-    dataset = json.load(f)
+if os.path.exists("data/preprocessed_training_data.pkl"):
+    with open("data/preprocessed_training_data.pkl", "rb") as f:
+        dataset = pickle.load(f)
+    print("✅ Loaded training data from preprocessed_training_data.pkl")
+else:
+    with open("data/intents.json", "r") as f:
+        data = json.load(f)
+    dataset = [{"text": pattern, "intent": intent["tag"]} for intent in data["intents"] for pattern in intent["patterns"]]
+    print("✅ Loaded training data from intents.json")
 
-texts = [preprocess(d["text"]) for d in dataset]
-intents = [d["intent"] for d in dataset]
+texts = [preprocess(item["text"]) for item in dataset]
+intents = [item["intent"] for item in dataset]
 
 vectorizer = TfidfVectorizer(max_features=2500, ngram_range=(1, 2), sublinear_tf=True)
 X = vectorizer.fit_transform(texts)
@@ -54,7 +57,6 @@ X = vectorizer.fit_transform(texts)
 label_encoder = LabelEncoder()
 y = label_encoder.fit_transform(intents)
 
-# Split into train/test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=42)
 
 class ChatModel(nn.Module):
@@ -76,7 +78,6 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.002)
 X_tensor = torch.FloatTensor(X_train.toarray())
 y_tensor = torch.LongTensor(y_train)
 
-# Training loop
 epochs = 300
 for epoch in range(epochs):
     model.train()
@@ -88,7 +89,6 @@ for epoch in range(epochs):
     if epoch % 50 == 0:
         print(f"Epoch {epoch}/{epochs} - Loss: {loss.item():.4f}")
 
-# Evaluate
 model.eval()
 with torch.no_grad():
     test_tensor = torch.FloatTensor(X_test.toarray())
@@ -105,7 +105,6 @@ with torch.no_grad():
         zero_division=0
     ))
 
-    # Confusion Matrix
     cm = confusion_matrix(y_test, predicted, labels=label_encoder.transform(label_encoder.classes_))
     plt.figure(figsize=(10, 6))
     sns.heatmap(cm, annot=True, fmt='d', xticklabels=label_encoder.classes_, yticklabels=label_encoder.classes_, cmap='Blues')
@@ -113,11 +112,10 @@ with torch.no_grad():
     plt.ylabel('Actual')
     plt.title('Confusion Matrix')
     plt.tight_layout()
-    plt.savefig('model/confusion_matrix.png')
+    os.makedirs("model", exist_ok=True)
+    plt.savefig("model/confusion_matrix.png")
     plt.close()
 
-# Save model and tools
-os.makedirs("model", exist_ok=True)
 torch.save(model.state_dict(), "model/intent_model.pt")
 with open("model/vectorizer.pkl", "wb") as f:
     pickle.dump(vectorizer, f)
