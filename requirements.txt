@@ -7,3 +7,5 @@ pymongo
 fuzzywuzzy
 python-Levenshtein
 seaborn
+matplotlib
+fuzzywuzzy

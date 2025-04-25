@@ -4,13 +4,15 @@
             "tag": "greet",
             "patterns": [
                 "Hi",
-                "Hello there!",
-                "Good morning"
+                "Hello",
+                "Hey",
+                "Good morning",
+                "Good evening"
             ],
             "responses": [
-                "Hi there! \ud83d\udc4b",
-                "Hello! How can I assist you today?",
-                "Hey! Need help finding a car or bike?"
+                "Hi there! 👋 How can I assist you today?",
+                "Hello! Looking for a vehicle? 🚗",
+                "Hey! Tell me what you're searching for — car, bike, or seller!"
             ]
         },
         {
@@ -146,16 +148,6 @@
             "responses": []
         },
         {
-            "tag": "vehicle_model_year_query",
-            "patterns": [
-                "2024 made cars",
-                "2023 model cars",
-                "Show me 2022 vehicles",
-                "I want a 2024 manufactured vehicle",
-                "Cars from the year 2023"
-            ]
-        },
-        {
             "tag": "vehicle_brand_query",
             "patterns": [
                 "Show me Honda cars",
@@ -192,6 +184,25 @@
                 "Sure! Let me check the seller name.",
                 "Here's the seller's information.",
                 "This vehicle is listed by the following seller."
+            ]
+        },
+        {
+            "tag": "vehicle_model_year_query",
+            "patterns": [
+                "2024 model cars",
+                "Show me 2023 vehicles",
+                "2020 bikes available",
+                "Do you have 2022 vehicles?",
+                "Cars from 2024",
+                "All 2021 made motorcycles",
+                "What vehicles from 2023?",
+                "2024 manufactured vehicles",
+                "Latest model cars",
+                "Vehicles released in 2024"
+            ],
+            "responses": [
+                "Here are some {year} vehicles I found for you:",
+                "Listing {year} model cars and bikes..."
             ]
         }
     ]
