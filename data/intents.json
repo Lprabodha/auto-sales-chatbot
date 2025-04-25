@@ -231,6 +231,19 @@
                 "Here are some {year} vehicles I found for you:",
                 "Listing {year} model cars and bikes..."
             ]
+        },
+        {
+            "tag": "vehicle_comparison_query",
+            "patterns": [
+                "Compare Toyota Aqua and Honda Fit",
+                "Which is better: Vezel or CH-R?",
+                "Difference between Swift and Wagon R?",
+                "Compare BMW X1 vs Audi Q3",
+                "Honda City or Toyota Premio?"
+            ],
+            "responses": [
+                "Sure! Let me fetch comparison details for you 🚗✨ (Coming soon — or you can compare manually on the site for now!)"
+            ]
         }
     ]
 }
