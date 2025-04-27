@@ -244,6 +244,33 @@
             "responses": [
                 "Sure! Let me fetch comparison details for you 🚗✨ (Coming soon — or you can compare manually on the site for now!)"
             ]
+        },
+        {
+            "tag": "vehicle_financing_query",
+            "patterns": [
+                "Can I lease a car?",
+                "Is leasing possible?",
+                "Can I finance this vehicle?",
+                "Vehicle leasing available?",
+                "Monthly payment for car?",
+                "Can I pay monthly?",
+                "Hire purchase options?",
+                "Loan option for vehicles?",
+                "Car on finance?",
+                "Bike finance available?",
+                "Do you offer leasing?",
+                "How to lease a bike?",
+                "EMI plans for cars?",
+                "Bank loan for vehicles?",
+                "Auto loan available?"
+            ],
+            "responses": [
+                "AutoHub.lk does not directly offer vehicle financing. 🚗 Please contact the individual seller for leasing or loan options!",
+                "Some sellers might offer financing, leasing, or hire purchase deals. Feel free to ask the seller directly. 🚗💳",
+                "At AutoHub.lk, we list vehicles for sale, but financing options depend on the seller. Please review the ad details or contact the seller. 📄📞",
+                "AutoHub.lk helps you find vehicles! 🚗 However, financing like loans or leasing depends on each seller individually. Check listings for more info. 💳",
+                "We don't provide direct financing at AutoHub.lk, but many sellers mention leasing or finance availability. Please check the ad description. 📄"
+            ]
         }
     ]
 }

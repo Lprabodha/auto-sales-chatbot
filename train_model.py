@@ -19,6 +19,7 @@ nltk.download('wordnet')
 nltk.download('stopwords')
 nltk.download('omw-1.4')
 
+# --- Preprocessing Tools ---
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words('english'))
 
@@ -26,8 +27,9 @@ def get_synonyms(word):
     synonyms = set()
     for syn in wn.synsets(word):
         for lemma in syn.lemmas():
-            if lemma.name() != word:
-                synonyms.add(lemma.name().replace('_', ' '))
+            name = lemma.name().replace("_", " ").lower()
+            if name != word:
+                synonyms.add(name)
     return synonyms
 
 def preprocess(text):
@@ -38,28 +40,32 @@ def preprocess(text):
         augmented.update(get_synonyms(w))
     return ' '.join(augmented)
 
-# Load dataset
-dataset_path = "data/intents.json"
+# --- Load Data ---
+dataset = []
 if os.path.exists("data/mongo_generated_training_data.pkl"):
     with open("data/mongo_generated_training_data.pkl", "rb") as f:
         dataset = pickle.load(f)
-    texts = [preprocess(d["text"]) for d in dataset]
-    intents = [d["intent"] for d in dataset]
 else:
-    with open(dataset_path, "r") as f:
-        data = json.load(f)
-    dataset = [{"text": pattern, "intent": intent["tag"]} for intent in data["intents"] for pattern in intent.get("patterns", [])]
-    texts = [preprocess(d["text"]) for d in dataset]
-    intents = [d["intent"] for d in dataset]
+    with open("data/intents.json", "r") as f:
+        intents_json = json.load(f)
+    dataset = [{"text": pattern, "intent": intent["tag"]} for intent in intents_json["intents"] for pattern in intent.get("patterns", [])]
 
-vectorizer = TfidfVectorizer(max_features=3000, ngram_range=(1, 3))
+texts = [preprocess(item["text"]) for item in dataset]
+intents = [item["intent"] for item in dataset]
+
+print(f"✅ Loaded {len(texts)} training examples.")
+
+# --- Feature Extraction ---
+vectorizer = TfidfVectorizer(max_features=3000, ngram_range=(1, 3), sublinear_tf=True)
 X = vectorizer.fit_transform(texts)
 
 label_encoder = LabelEncoder()
 y = label_encoder.fit_transform(intents)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=42)
+# --- Train/Test Split ---
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, stratify=y, random_state=42)
 
+# --- Neural Network ---
 class ChatModel(nn.Module):
     def __init__(self, input_size, hidden_size, output_size):
         super(ChatModel, self).__init__()
@@ -72,15 +78,16 @@ class ChatModel(nn.Module):
         x = self.dropout(x)
         return self.fc2(x)
 
-model = ChatModel(X.shape[1], 128, len(set(y)))
+model = ChatModel(X.shape[1], hidden_size=128, output_size=len(set(y)))
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
 X_tensor = torch.FloatTensor(X_train.toarray())
 y_tensor = torch.LongTensor(y_train)
 
-# Training
-for epoch in range(400):
+# --- Training ---
+epochs = 400
+for epoch in range(epochs):
     model.train()
     optimizer.zero_grad()
     output = model(X_tensor)
@@ -88,21 +95,22 @@ for epoch in range(400):
     loss.backward()
     optimizer.step()
     if epoch % 50 == 0:
-        print(f"Epoch {epoch} - Loss: {loss.item():.4f}")
+        print(f"Epoch {epoch}/{epochs} - Loss: {loss.item():.4f}")
 
-# Evaluation
+# --- Evaluation ---
 model.eval()
 with torch.no_grad():
     test_tensor = torch.FloatTensor(X_test.toarray())
     preds = model(test_tensor)
     predicted = torch.argmax(preds, dim=1)
     acc = accuracy_score(y_test, predicted)
-    print(f"\n✅ Test Accuracy: {acc * 100:.2f}%")
+    print(f"\n✅ Test Accuracy: {acc*100:.2f}%\n")
     print(classification_report(y_test, predicted, target_names=label_encoder.classes_, zero_division=0))
 
+    # Confusion Matrix
     cm = confusion_matrix(y_test, predicted)
     plt.figure(figsize=(10, 6))
-    sns.heatmap(cm, annot=True, fmt='d', xticklabels=label_encoder.classes_, yticklabels=label_encoder.classes_, cmap='Blues')
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=label_encoder.classes_, yticklabels=label_encoder.classes_)
     plt.xlabel("Predicted")
     plt.ylabel("Actual")
     plt.title("Confusion Matrix")
@@ -110,7 +118,7 @@ with torch.no_grad():
     plt.savefig("model/confusion_matrix.png")
     plt.close()
 
-# Save model and tools
+# --- Save Model + Tools ---
 os.makedirs("model", exist_ok=True)
 torch.save(model.state_dict(), "model/intent_model.pt")
 with open("model/vectorizer.pkl", "wb") as f:
@@ -118,4 +126,4 @@ with open("model/vectorizer.pkl", "wb") as f:
 with open("model/label_encoder.pkl", "wb") as f:
     pickle.dump(label_encoder, f)
 
-print("\n✅ Model training complete. Saved in /model.")
+print("✅ Model training complete. Saved model, vectorizer, label encoder.")

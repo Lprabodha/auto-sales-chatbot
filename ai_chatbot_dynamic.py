@@ -1,5 +1,3 @@
-# ai_chatbot_dynamic.py (FINAL FIXED VERSION WITH GREETING + FALLBACK)
-
 from fastapi import FastAPI
 from pydantic import BaseModel
 from pymongo import MongoClient
@@ -19,7 +17,6 @@ nltk.download('omw-1.4')
 
 lemmatizer = WordNetLemmatizer()
 
-# Load model and tools
 def load_model_and_tools():
     global model, vectorizer, label_encoder
     from train_model import ChatModel
@@ -106,7 +103,11 @@ def get_response(intent, query):
     
     if any(w in lowered for w in ["thank", "thanks", "appreciate"]):
         return random.choice(static_map.get("thank", ["You're welcome! 🚗"]))
-
+    
+    finance_keywords = ["lease", "financing", "loan", "monthly payment", "installment", "emi", "hire purchase"]
+    if any(w in lowered for w in finance_keywords):
+        intent = "vehicle_financing_query"
+        
     auto_keywords = ["car", "bike", "vehicle", "price", "model", "brand", "motorcycle", "seller", "year", "buy", "sell"]
     if not any(word in lowered for word in auto_keywords):
         return "❓ I'm specialized in assisting with auto sales. 🚗🏍️ Please ask about vehicles, cars, motorcycles, prices, locations, or sellers."
@@ -122,6 +123,8 @@ def get_response(intent, query):
         return fetch_by_model_year(query)
     elif intent == "seller_name_query":
         return fetch_seller_info(query)
+    elif intent == "vehicle_financing_query":
+        return random.choice(static_map.get("vehicle_financing_query", ["Please contact the seller for financing details. 🚗💳"]))
 
     return "Sorry, I'm specialized in assisting with auto sales. 🚗🏍️ Please ask about vehicles, cars, motorcycles, prices, locations, or sellers."
 
