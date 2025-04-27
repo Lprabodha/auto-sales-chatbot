@@ -97,12 +97,19 @@ def get_response(intent, query):
         static_map = {}
 
     lowered = query.lower()
+
     if any(w in lowered for w in ["hi", "hello", "hey", "greetings", "good morning"]):
-        return random.choice(static_map.get("greet", ["Hi there! 👋 How can I help?"]))
+        return random.choice(static_map.get("greet", ["Hi there! 👋 How can I help you find a vehicle?"]))
+    
     if any(w in lowered for w in ["bye", "goodbye", "see you"]):
-        return random.choice(static_map.get("goodbye", ["Goodbye! 👋 Come back anytime."]))
+        return random.choice(static_map.get("goodbye", ["Goodbye! 👋 Have a great day!"]))
+    
     if any(w in lowered for w in ["thank", "thanks", "appreciate"]):
-        return random.choice(static_map.get("thank", ["You're welcome! 😊"]))
+        return random.choice(static_map.get("thank", ["You're welcome! 🚗"]))
+
+    auto_keywords = ["car", "bike", "vehicle", "price", "model", "brand", "motorcycle", "seller", "year", "buy", "sell"]
+    if not any(word in lowered for word in auto_keywords):
+        return "❓ I'm specialized in assisting with auto sales. 🚗🏍️ Please ask about vehicles, cars, motorcycles, prices, locations, or sellers."
 
     if intent in static_map and static_map[intent]:
         return random.choice(static_map[intent])
@@ -116,4 +123,5 @@ def get_response(intent, query):
     elif intent == "seller_name_query":
         return fetch_seller_info(query)
 
-    return "Sorry, I couldn't understand. Please try asking about a vehicle's price, availability, or seller information."
+    return "Sorry, I'm specialized in assisting with auto sales. 🚗🏍️ Please ask about vehicles, cars, motorcycles, prices, locations, or sellers."
+
