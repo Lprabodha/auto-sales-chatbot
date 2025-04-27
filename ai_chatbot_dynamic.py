@@ -107,6 +107,10 @@ def get_response(intent, query):
     finance_keywords = ["lease", "financing", "loan", "monthly payment", "installment", "emi", "hire purchase"]
     if any(w in lowered for w in finance_keywords):
         intent = "vehicle_financing_query"
+    
+    seller_keywords = ["seller", "owner", "contact", "phone number", "call", "seller info"]
+    if any(w in lowered for w in seller_keywords):
+        intent = "seller_name_query"
         
     auto_keywords = ["car", "bike", "vehicle", "price", "model", "brand", "motorcycle", "seller", "year", "buy", "sell"]
     if not any(word in lowered for word in auto_keywords):

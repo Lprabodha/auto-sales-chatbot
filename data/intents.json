@@ -191,22 +191,18 @@
         {
             "tag": "seller_name_query",
             "patterns": [
-                "Who is the seller?",
-                "What's the name of the seller?",
-                "Tell me the owner of this vehicle",
-                "Seller info",
-                "I want to know the seller name",
-                "Who's selling this?",
-                "Who owns the car?",
-                "Who is the owner?",
-                "Seller info for Honda Dio",
-                "Contact of Toyota Premio seller",
-                "Who owns the Suzuki Swift ad?"
+                "Who is the seller for this car?",
+                "How to contact the seller directly?",
+                "Seller contact info for Honda Vezel?",
+                "Phone number of Toyota Aqua seller?",
+                "Get seller details for Suzuki Swift.",
+                "Can I call the car owner?",
+                "I want seller phone number",
+                "How to reach vehicle seller?",
+                "Show me seller contact for BMW 5 Series."
             ],
             "responses": [
-                "Sure! Let me check the seller name.",
-                "Here's the seller's information.",
-                "This vehicle is listed by the following seller."
+                "Let me help you find the seller details! 📞"
             ]
         },
         {

@@ -110,8 +110,12 @@ def fetch_seller_info(query):
                 seller = v.get("seller_name", "Not listed")
                 phone = v.get("phone_number", "N/A")
                 url = v.get("ad_url", "")
-                results.append(f"Seller: {seller} | Contact: {phone}\n🌐 {url}")
-    return "\n\n".join(results[:5]) if results else "No seller info found for that vehicle."
+                results.append(f"👤 Seller: {seller}\n📞 Phone: {phone}\n🌐 [View Ad]({url})")
+    if results:
+        return "\n\n".join(results[:5])
+    else:
+        return "❓ Please specify the vehicle name (like Honda Vezel, Suzuki Swift) so I can find the seller for you!"
+
 
 def fetch_by_model_year(query):
     match = re.search(r"\b(20\\d{2})\b", query)
