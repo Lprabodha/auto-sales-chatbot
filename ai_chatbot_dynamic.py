@@ -6,16 +6,16 @@ import pickle
 import random
 import re
 from datetime import datetime
-import nltk
-from nltk.stem import WordNetLemmatizer
 from fetch_utils import fetch_selected_details, fetch_by_budget, fetch_by_model_year, fetch_seller_info, fetch_by_model_year
 import json
+from preprocessing.clean_text import preprocess
 
-nltk.download('punkt')
-nltk.download('wordnet')
-nltk.download('omw-1.4')
 
-lemmatizer = WordNetLemmatizer()
+client = MongoClient("mongodb+srv://lprabodha1998:SfXnuKZIecrv3TUJ@cluster0.e2m4j.mongodb.net/")
+db = client["vehicle_prices"]
+history_col = db["chat_history"]
+
+app = FastAPI()
 
 def load_model_and_tools():
     global model, vectorizer, label_encoder
@@ -30,25 +30,16 @@ def load_model_and_tools():
 
 load_model_and_tools()
 
-client = MongoClient("mongodb+srv://lprabodha1998:SfXnuKZIecrv3TUJ@cluster0.e2m4j.mongodb.net/")
-db = client["vehicle_prices"]
-history_col = db["chat_history"]
-
-app = FastAPI()
 
 class ChatInput(BaseModel):
     user_id: str
     message: str
 
-def tokenize_and_lemmatize(text):
-    tokens = re.findall(r"[a-zA-Z0-9]+", text.lower())
-    return " ".join([lemmatizer.lemmatize(word) for word in tokens])
-
 @app.post("/chat")
 def chat(chat_input: ChatInput):
     query = chat_input.message
     user_id = chat_input.user_id
-    clean_query = tokenize_and_lemmatize(query)
+    clean_query = preprocess(query)
 
     vec = vectorizer.transform([clean_query])
     input_tensor = torch.FloatTensor(vec.toarray())
@@ -104,11 +95,14 @@ def get_response(intent, query):
     if any(w in lowered for w in ["thank", "thanks", "appreciate"]):
         return random.choice(static_map.get("thank", ["You're welcome! 🚗"]))
     
+    if any(w in lowered for w in ["your name", "who are you", "who made you", "are you a chatbot", "what do you do"]):
+        intent = "bot_identity"
+    
     finance_keywords = ["lease", "financing", "loan", "monthly payment", "installment", "emi", "hire purchase"]
     if any(w in lowered for w in finance_keywords):
         intent = "vehicle_financing_query"
     
-    seller_keywords = ["seller", "owner", "contact", "phone number", "call", "seller info"]
+    seller_keywords = ["seller", "contact", "phone number", "owner", "call seller", "seller info"]
     if any(w in lowered for w in seller_keywords):
         intent = "seller_name_query"
         

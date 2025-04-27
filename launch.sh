@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# launch.sh (Auto Sales AI Chatbot)
-
 echo "🚀 Starting Auto Sales Chatbot Setup..."
 
 echo "🔹 Activating Python virtual environment..."

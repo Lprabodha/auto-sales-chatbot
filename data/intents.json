@@ -267,6 +267,26 @@
                 "AutoHub.lk helps you find vehicles! 🚗 However, financing like loans or leasing depends on each seller individually. Check listings for more info. 💳",
                 "We don't provide direct financing at AutoHub.lk, but many sellers mention leasing or finance availability. Please check the ad description. 📄"
             ]
+        },
+        {
+            "tag": "bot_identity",
+            "patterns": [
+                "What is your name?",
+                "Who are you?",
+                "Tell me your name",
+                "What do you do?",
+                "Are you a chatbot?",
+                "Who made you?",
+                "Name of this bot?",
+                "What's your full name?",
+                "What's your role?"
+            ],
+            "responses": [
+                "I'm AutoHub, your friendly assistant for finding cars and motorcycles in Sri Lanka! 🚗🏍️",
+                "Hi, I'm AutoHub! I'm here to help you with auto sales questions. 🚗",
+                "AutoHub here! 🚗 Let's find you the perfect vehicle today!",
+                "I'm AutoHub — trained to assist you with cars, bikes, sellers, and vehicle prices in Sri Lanka. 🚗🏍️"
+            ]
         }
     ]
 }
