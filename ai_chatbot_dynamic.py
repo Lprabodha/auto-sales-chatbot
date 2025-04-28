@@ -124,5 +124,9 @@ def get_response(intent, query):
     elif intent == "vehicle_financing_query":
         return random.choice(static_map.get("vehicle_financing_query", ["Some sellers offer financing options. 🚗💳"]))
 
-    return "Sorry, I'm specialized in assisting with auto sales. 🚗🏍️ Please ask about vehicles, cars, motorcycles, prices, locations, or sellers."
-
+    fallback_responses = [
+        "😔 Sorry, I couldn't find an exact match. Let’s try another search!",
+        "🚗 No matching results. Want to check another vehicle?",
+        "🤔 Hmm, I didn't find that. Maybe try a different brand or model?",
+    ]
+    return random.choice(fallback_responses)

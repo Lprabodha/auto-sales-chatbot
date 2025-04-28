@@ -3,7 +3,6 @@ import torch.nn as nn
 import json
 import pickle
 import os
-import nltk
 import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -11,8 +10,6 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from nltk.corpus import stopwords, wordnet as wn
-from nltk.tokenize import word_tokenize
-from nltk.stem import WordNetLemmatizer
 from preprocessing.clean_text import preprocess
 
 
