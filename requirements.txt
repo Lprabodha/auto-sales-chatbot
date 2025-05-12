@@ -1,11 +1,9 @@
 torch
-scikit-learn
 nltk
+pymongo
+scikit-learn
+matplotlib
+word2number
 fastapi
 uvicorn
-pymongo
-fuzzywuzzy
-python-Levenshtein
-seaborn
-matplotlib
-fuzzywuzzy
+pydantic

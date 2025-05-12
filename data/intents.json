@@ -1,292 +1,287 @@
 {
-    "intents": [
-        {
-            "tag": "greet",
-            "patterns": [
-                "Hi",
-                "Hello",
-                "Hey",
-                "Good morning",
-                "Good evening"
-            ],
-            "responses": [
-                "Hi there! 👋 Welcome to AutoHub.lk. Looking for a car or a bike?",
-                "Hello! Looking for a vehicle? 🚗",
-                "Hey! Tell me what you're searching for — car, bike, or seller!"
-            ]
-        },
-        {
-            "tag": "goodbye",
-            "patterns": [
-                "Bye",
-                "See you later"
-            ],
-            "responses": [
-                "Goodbye! 👋 Come back to AutoHub.lk anytime for great deals.",
-                "Take care! \ud83d\udc4b",
-                "See you next time!"
-            ]
-        },
-        {
-            "tag": "thank",
-            "patterns": [
-                "Thanks",
-                "Thank you so much"
-            ],
-            "responses": [
-                "You're welcome! 😊 Happy to help.",
-                "Glad I could help!",
-                "Anytime! Let me know if you need more assistance."
-            ]
-        },
-        {
-            "tag": "help",
-            "patterns": [
-                "Can you help me?",
-                "I need help",
-                "How can I use this?",
-                "Help me find a vehicle",
-                "Can you help me find a car?",
-                "I'm trying to find something",
-                "Show me how this works",
-                "I want to browse vehicles",
-                "What can I ask you?"
-            ],
-            "responses": [
-                "Sure! You can ask things like: 'Show me cars under 3 million', 'What bikes are available in Colombo?', or 'Who is selling this car?'"
-            ]
-        },
-        {
-            "tag": "vehicle_categories",
-            "patterns": [
-                "Do you have cars and bikes?",
-                "I want to buy a vehicle",
-                "List vehicles"
-            ],
-            "responses": [
-                "Yes! We support both cars and motorcycles. You can filter by brand, location, price, or year."
-            ]
-        },
-        {
-            "tag": "available_features",
-            "patterns": [
-                "What features can I ask about?",
-                "Which details do you provide?",
-                "What info do you give about vehicles?"
-            ],
-            "responses": [
-                "You can ask about price, location, engine capacity, fuel type, model year, and contact info for sellers."
-            ]
-        },
-        {
-            "tag": "vehicle_price_query",
-            "patterns": [
-                "What is the price of Suzuki Swift?",
-                "How much does a Honda PCX cost?",
-                "Can you tell me the price of Toyota Premio?",
-                "What is the price of Suzuki Spacia?",
-                "Car price in Colombo"
-            ],
-            "responses": []
-        },
-        {
-            "tag": "vehicle_location",
-            "patterns": [
-                "Where is the Honda PCX located?",
-                "Which city has the Suzuki Swift?",
-                "Where is PCX located?",
-                "Show cars in Colombo",
-                "Motorbikes available in Galle",
-                "Vehicles for sale in Kandy",
-                "Where can I find cars in Negombo?"
-            ],
-            "responses": []
-        },
-        {
-            "tag": "vehicle_year",
-            "patterns": [
-                "In what year was the Honda PCX made?",
-                "When was the Suzuki Swift manufactured?"
-            ],
-            "responses": []
-        },
-        {
-            "tag": "vehicle_info",
-            "patterns": [
-                "Tell me about cars",
-                "Show me some motorcycles"
-            ],
-            "responses": []
-        },
-        {
-            "tag": "buy_intent",
-            "patterns": [
-                "I want to buy a car",
-                "I'm looking to purchase a motorbike"
-            ],
-            "responses": []
-        },
-        {
-            "tag": "vehicle_fuel_type",
-            "patterns": [
-                "Do you have electric bikes?",
-                "Are there any petrol vehicles?"
-            ],
-            "responses": []
-        },
-        {
-            "tag": "vehicle_detail_request",
-            "patterns": [
-                "Give me details of a car",
-                "Provide full details about Honda PCX",
-                "Tell me about Honda PCX",
-                "Tell me about Toyota Allion",
-                "Details of Toyota Allion",
-                "Give me specs for Toyota Allion",
-                "What features does Toyota Allion have?",
-                "Full information on Toyota Allion",
-                "Tell me about Toyota Aqua",
-                "Show me Suzuki Swift ads",
-                "Honda Fit information",
-                "Vehicle details for BMW 5 series",
-                "Can you help me find a car?",
-                "I'm looking for a motorcycle"
-            ],
-            "responses": []
-        },
-        {
-            "tag": "vehicle_by_budget_query",
-            "patterns": [
-                "Any motorbikes below 1.5 million?",
-                "Colombo BMW under 50m",
-                "Cars under 3 million",
-                "Vehicles below 2.5 million",
-                "Motorcycles under 500k",
-                "Bikes below 1 million",
-                "Budget vehicles around 4 million"
-            ],
-            "responses": []
-        },
-        {
-            "tag": "vehicle_brand_query",
-            "patterns": [
-                "Show me Honda cars",
-                "I want a Suzuki bike",
-                "Any Toyota vehicles?",
-                "Honda PCX",
-                "Suzuki Swift"
-            ],
-            "responses": []
-        },
-        {
-            "tag": "vehicle_type_query",
-            "patterns": [
-                "Show me SUVs",
-                "I want a sedan",
-                "Any hatchbacks available?",
-                "Motorcycles in stock"
-            ],
-            "responses": []
-        },
-        {
-            "tag": "seller_name_query",
-            "patterns": [
-                "Who is the seller for this car?",
-                "How to contact the seller directly?",
-                "Seller contact info for Honda Vezel?",
-                "Phone number of Toyota Aqua seller?",
-                "Get seller details for Suzuki Swift.",
-                "Can I call the car owner?",
-                "I want seller phone number",
-                "How to reach vehicle seller?",
-                "Show me seller contact for BMW 5 Series."
-            ],
-            "responses": [
-                "Let me help you find the seller details! 📞"
-            ]
-        },
-        {
-            "tag": "vehicle_model_year_query",
-            "patterns": [
-                "2024 model cars",
-                "Show me 2023 vehicles",
-                "2020 bikes available",
-                "Do you have 2022 vehicles?",
-                "Cars from 2024",
-                "All 2021 made motorcycles",
-                "What vehicles from 2023?",
-                "2024 manufactured vehicles",
-                "Latest model cars",
-                "Vehicles released in 2024",
-                "2024 model cars",
-                "2023 bikes for sale",
-                "Show me 2022 vehicles",
-                "Any cars from 2021?"
-            ],
-            "responses": [
-                "Here are some {year} vehicles I found for you:",
-                "Listing {year} model cars and bikes..."
-            ]
-        },
-        {
-            "tag": "vehicle_comparison_query",
-            "patterns": [
-                "Compare Toyota Aqua and Honda Fit",
-                "Which is better: Vezel or CH-R?",
-                "Difference between Swift and Wagon R?",
-                "Compare BMW X1 vs Audi Q3",
-                "Honda City or Toyota Premio?"
-            ],
-            "responses": [
-                "Sure! Let me fetch comparison details for you 🚗✨ (Coming soon — or you can compare manually on the site for now!)"
-            ]
-        },
-        {
-            "tag": "vehicle_financing_query",
-            "patterns": [
-                "Can I lease a car?",
-                "Is leasing possible?",
-                "Can I finance this vehicle?",
-                "Vehicle leasing available?",
-                "Monthly payment for car?",
-                "Can I pay monthly?",
-                "Hire purchase options?",
-                "Loan option for vehicles?",
-                "Car on finance?",
-                "Bike finance available?",
-                "Do you offer leasing?",
-                "How to lease a bike?",
-                "EMI plans for cars?",
-                "Bank loan for vehicles?",
-                "Auto loan available?"
-            ],
-            "responses": [
-                "AutoHub.lk does not directly offer vehicle financing. 🚗 Please contact the individual seller for leasing or loan options!",
-                "Some sellers might offer financing, leasing, or hire purchase deals. Feel free to ask the seller directly. 🚗💳",
-                "At AutoHub.lk, we list vehicles for sale, but financing options depend on the seller. Please review the ad details or contact the seller. 📄📞",
-                "AutoHub.lk helps you find vehicles! 🚗 However, financing like loans or leasing depends on each seller individually. Check listings for more info. 💳",
-                "We don't provide direct financing at AutoHub.lk, but many sellers mention leasing or finance availability. Please check the ad description. 📄"
-            ]
-        },
-        {
-            "tag": "bot_identity",
-            "patterns": [
-                "What is your name?",
-                "Who are you?",
-                "Tell me your name",
-                "What do you do?",
-                "Are you a chatbot?",
-                "Who made you?",
-                "Name of this bot?",
-                "What's your full name?",
-                "What's your role?"
-            ],
-            "responses": [
-                "I'm AutoHub, your friendly assistant for finding cars and motorcycles in Sri Lanka! 🚗🏍️",
-                "Hi, I'm AutoHub! I'm here to help you with auto sales questions. 🚗",
-                "AutoHub here! 🚗 Let's find you the perfect vehicle today!",
-                "I'm AutoHub — trained to assist you with cars, bikes, sellers, and vehicle prices in Sri Lanka. 🚗🏍️"
-            ]
-        }
-    ]
+  "intents": [
+    {
+      "tag": "greet",
+      "patterns": [
+        "Hi",
+        "Hello",
+        "Hey",
+        "Good morning",
+        "Good evening",
+        "What's up?",
+        "Hey there",
+        "hi",
+        "how's everything?",
+        "hello there"
+      ],
+      "responses": [
+        "Hi, how can I assist you today?"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "Bye",
+        "Thank you",
+        "See you later",
+        "Goodbye",
+        "Thanks",
+        "Catch you later",
+        "have a nice day",
+        "All good"
+      ],
+      "responses": [
+        "Have a nice day!",
+        "Goodbye"
+      ]
+    },
+    {
+      "tag": "ask_brand_model",
+      "patterns": [
+        "I\u2019m looking for a BMW",
+        "Do you have Toyota cars?",
+        "Any Nissan Leaf?",
+        "Show me a Honda Fit",
+        "Tell me about Suzuki Wagon R",
+        "Looking for a Toyota Prius",
+        "Is BMW X5 available?",
+        "Have any Mitsubishi Montero?",
+        "What are the BMWs available",
+        "What Toyota vehicles available right now",
+        "Suggest me BYDs up for grab",
+        "Peugeot 406 is in sale?",
+        "Show me Honda cars",
+        "Can I get a Nissan Sunny?",
+        "What Suzuki cars available currently?",
+        "Do you have Toyota Vitz?",
+        "I\u2019m looking for a BMW 520d",
+        "Show me a Nissan Sunny",
+        "Tell me about Mitsubishi Montero",
+        "Is Honda Fit available?",
+        "Can I get a Suzuki Wagon R?",
+        "Any listings for Toyota Prius?",
+        "Show me BMW X5s",
+        "Do you have Mazda Axela?",
+        "Looking for a Honda Civic",
+        "Is there any Toyota CHR?",
+        "I want a Nissan Leaf",
+        "Got any BMW 316i?",
+        "Do you have Proton Saga?",
+        "Looking for Honda Grace",
+        "Do you have BMW X5",
+        "Do you have toyota vitz",
+        "what are the available Honda Civic?",
+        "can you show me honda fit",
+        "looking for a used honda civic"
+      ],
+      "responses": [
+        "We have several {brand} {model} listings. Here's what I found:"
+      ]
+    },
+    {
+      "tag": "ask_cheapest",
+      "patterns": [
+        "what is the cheapest car",
+        "show me the cheapest vehicle",
+        "what is the cheapest Toyota car?",
+        "which is the lowest priced car?",
+        "any cheap SUV?",
+        "cheapest vehicle available?",
+        "show cheapest Nissan car",
+        "which brand has cheapest vehicles?"
+      ],
+      "responses": [
+        "Here is the lowest priced vehicle available:"
+      ]
+    },
+    {
+      "tag": "ask_price_range",
+      "patterns": [
+        "Show me cars under 5 million",
+        "Any vehicle under five million?",
+        "What do you have for 3M to 5M?",
+        "Vehicles between three million and five million",
+        "Cars under fifty lakhs",
+        "Show cars under 5000000",
+        "Show vehicles below 45 lakhs",
+        "What cars are in 2 million range?",
+        "Show me cars between 2.5 and 4.5 million",
+        "Suggest me a vehicle under 5000000",
+        "What are the SUVs under 1000000?",
+        "What are the BMWs under 50 million",
+        "any BMW under 4 million",
+        "show me Honda cars under 8 million",
+        "are there Toyota cars below 3 million",
+        "any Nissan vehicles under 5 million",
+        "what Suzuki cars between 2 and 5 million",
+        "do you have any BYD under 6 million",
+        "cars under 10 million from Toyota",
+        "any vehicle from BMW below 7 million",
+        "need Toyota cars below 5M",
+        "show me cars between 2 million and 4 million",
+        "suggest me vehicles from 3M to 6M",
+        "do you have Toyota cars between 4M and 7M?",
+        "show Honda cars from 5 million to 8 million",
+        "are there any BMWs between 3 million and 5 million?",
+        "I want to see cars priced from 6M to 10M",
+        "what Suzuki vehicles are there between 2.5 and 5.5 million",
+        "list me Nissan cars between 4000000 and 6000000",
+        "any BYD cars between 5 and 7 million?",
+        "need some Mitsubishi vehicles from 2 million to 3.5 million",
+        "show all Toyota models from 3M to 5M",
+        "what Peugeot cars are available between 4M and 6M?",
+        "can you list Honda cars in the 2 to 6 million range?",
+        "what are the vehicles between 3M to 7M?",
+        "which BMWs are available in 2 million to 5 million range?",
+        "list cars priced from 4,000,000 to 6,000,000",
+        "what vehicles fall within 3M - 6M price range?",
+        "get me Toyotas in the 2.5 to 4.5M range",
+        "do you have Nissan cars priced between 3M and 5M?",
+        "any available vehicles between 3M and 6M",
+        "I'm looking for an SUV under 10 million",
+        "Show me sedans below 5 million",
+        "Are there any hatchbacks between 2M and 4M?",
+        "List crossovers from 3M to 6M",
+        "Do you have any vans under 3 million?",
+        "Suggest me trucks below 7 million",
+        "What 4x4s are available under 6 million?",
+        "Can I see SUVs between 8M and 12M?",
+        "Show me available wagons under 5M",
+        "List me some hatchbacks priced from 2M to 4.5M",
+        "Need a sedan in the 3 to 6 million range",
+        "Can I get a crossover under 9 million?",
+        "Any trucks between 6 million and 10 million?",
+        "What are the cheapest SUVs under 8M?",
+        "I want an SUV from 4M to 9M",
+        "Suggest me a Toyota SUV under 10 million",
+        "Can I get a Honda crossover under 8 million",
+        "List Mitsubishi vans between 2 and 5 million",
+        "Show BMW sedans under 6 million",
+        "I want a Suzuki hatchback below 4 million",
+        "Any available 4x4s under 7M?",
+        "Do you have Nissan trucks between 3M to 6M?",
+        "Show electric cars under 5M",
+        "Looking for a petrol SUV under 9 million",
+        "could you suggest me some toyota cars under 5 million rupees"
+      ],
+      "responses": [
+        "Here are some vehicles within your budget:"
+      ]
+    },
+    {
+      "tag": "ask_by_fuel",
+      "patterns": [
+        "Do you have diesel cars?",
+        "Any petrol vehicles?",
+        "Show electric cars",
+        "What diesel variants are available?",
+        "Is there any hybrid model?",
+        "Can I see diesel engine cars?",
+        "I want a petrol car"
+      ],
+      "responses": [
+        "These are the vehicles with {fuel_type} engines:"
+      ]
+    },
+    {
+      "tag": "ask_by_vehicle_type",
+      "patterns": [
+        "Show me SUVs",
+        "I want a van",
+        "Do you have any hatchbacks?",
+        "Looking for a sedan",
+        "Any 4x4s available?",
+        "Do you have trucks?",
+        "Can I see crossover vehicles?"
+      ],
+      "responses": [
+        "Here are some {vehicle_type}s available:"
+      ]
+    },
+    {
+      "tag": "ask_leasing",
+      "patterns": [
+        "Can I lease a car?",
+        "Is leasing available?",
+        "What about financing options?",
+        "Can I buy this on loan?",
+        "Any installment plans?",
+        "Is a lease possible?",
+        "Can I get vehicle leasing?"
+      ],
+      "responses": [
+        "Please contact the vehicle owner directly for leasing details."
+      ]
+    },
+    {
+      "tag": "messing_around",
+      "patterns": [
+        "sdasdhasdsadsadsadj",
+        "asdlkasndlas noidbnasoidbpib sad",
+        "whar hjasdahi sadn2wof n24isf",
+        "000000000000",
+        "1323242432634423421",
+        "12123242424",
+        "][]]asdkp`]]]",
+        "asdfasdfasdfasdf",
+        "lolololololol",
+        "alksdjalksdj",
+        "what even is this",
+        "idk just typing",
+        "hahahahajdjdj",
+        "\ud83e\udd14\ud83e\udd14\ud83e\udd14\ud83e\udd2f\ud83e\udd2f\ud83e\udd2f",
+        ".........",
+        "lalalalala",
+        "is this thing alive?",
+        "HELLOOOOOOOOO",
+        "heh heh heh heh",
+        "does this work",
+        "testing testing 123",
+        "blah blah blah",
+        "!!!???!!!",
+        "okokokokokokok",
+        "why are you like this",
+        "you good?",
+        "i am just playing around",
+        "\ud83d\ude02\ud83d\ude02\ud83d\ude02\ud83d\ude02\ud83d\ude02\ud83d\ude02\ud83d\ude02\ud83d\ude02",
+        "just being random",
+        "i pressed all the keys",
+        "bloop bloop beep",
+        "zzzzzzzzzzzzzz",
+        "are you broken?"
+      ],
+      "responses": [
+        "You're just messing around huh? \ud83d\ude09 Good luck!"
+      ]
+    },
+    {
+      "tag": "acknowledge_positive",
+      "patterns": [
+        "Great",
+        "Awesome",
+        "Alright",
+        "Nice",
+        "Perfect",
+        "Good",
+        "Cool",
+        "Excellent",
+        "Thanks a lot",
+        "That helped",
+        "Appreciate it"
+      ],
+      "responses": [
+        "Glad to hear that! \ud83d\ude0a Do you need help with anything else?",
+        "Awesome! Let me know if there's anything more I can do.",
+        "Great! Would you like to explore more vehicles or price ranges?",
+        "Cool \ud83d\ude0e I'm here if you need more assistance."
+      ]
+    },
+    {
+      "tag": "fallback",
+      "patterns": [],
+      "responses": [
+        "I'm not sure I understood that. Could you please rephrase?"
+      ]
+    }
+  ]
 }

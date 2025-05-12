@@ -1,97 +1,163 @@
-# Auto Sales Chatbot (FastAPI + PyTorch + MongoDB)
 
-A complete production-ready intelligent chatbot for vehicle sales, supporting:
-- AI-powered intent detection (price queries, location, brand, year)
-- Dynamic answers via MongoDB (cars + bikes database)
-- Retraining from real user feedback automatically
+# 🚗 AutoBot – Intelligent Chatbot for Auto Sales
+
+AutoBot is an AI-powered chatbot built using **PyTorch**, **FastAPI**, and **MongoDB** that helps users search and filter vehicles intelligently. It can handle queries related to brands, models, fuel types, price ranges, and more, and supports feedback collection for continuous improvement via scheduled model retraining.
 
 ---
 
-## 📦 Project Structure
+## 🚀 Features
+
+- 🔍 **Natural Language Understanding** for vehicle queries (e.g., *“Show me Toyota Vitz under 5 million”*)
+- 📊 **Price, model, brand, and type filters** with fuzzy matching
+- 💬 **Interactive Chat Mode** or REST API
+- 🧠 **ML Model Training** with intent classification using PyTorch
+- ♻️ **Daily Retraining from Feedback** (admin-reviewed)
+- 📈 **Feedback Logging** with thumbs up/down reactions
+- 📂 **MongoDB Integration** for vehicle data and feedback history
+
+---
+
+## 🧰 Tech Stack
+
+- **Python 3.8+**
+- **PyTorch**
+- **FastAPI**
+- **MongoDB**
+- **Uvicorn** (for dev server)
+- **scikit-learn** (metrics)
+- **matplotlib** (for training metrics)
+
+---
+
+## 📁 Folder Structure
 
 ```
-/auto_sales_chatbot/
-├── ai_chatbot_dynamic.py
-├── train_model.py
-├── retrain_from_feedback.py
-├── prepare_data_from_mongo.py
-├── fetch_utils.py
-├── feedback_tools.py
-├── /data/
-│    ├── intents.json
-│    ├── mongo_generated_training_data.pkl
-├── /model/
-│    ├── vectorizer.pkl
-│    ├── label_encoder.pkl
-│    ├── intent_model.pt
-│    ├── confusion_matrix.png
-├── requirements.txt
-├── README.md
+auto_sales_bot/
+│
+├── data/
+│   └── intents.json              # Training intents
+├── models/
+│   └── model.pth                 # Saved PyTorch model
+├── utils/
+│   └── preprocessing.py          # Preprocessing utils
+├── api.py                        # FastAPI endpoint
+├── chatbot.py                    # Chat logic & ML inference
+├── train.py                      # Training script
+├── retrain_daily.py              # Scheduled retraining
+├── mongo_service.py              # MongoDB interface
+└── requirements.txt              # Dependencies
 ```
 
 ---
 
-## 🚀 How to Run
+## ⚙️ Setup Instructions
 
-### 1. Install dependencies
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/yourusername/auto_sales_bot.git
+cd auto_sales_bot
+```
+
+### 2. Create & activate a virtual environment
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+### 3. Install dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Train the model initially
+### 4. Start MongoDB
+
+Ensure MongoDB is running locally at `mongodb://localhost:27017`. Use Docker or install MongoDB natively.
+
+### 5. Train the model (initial run)
+
 ```bash
-python train_model.py
+python train.py
 ```
 
-### 3. Start the chatbot API
-```bash
-uvicorn ai_chatbot_dynamic:app --reload
-```
+### 6. Start the API
 
-- Open API documentation at: http://127.0.0.1:8000/docs
+```bash
+uvicorn api:app --reload
+```
 
 ---
 
-## 🔁 Retraining from User Feedback
+## 📬 API Endpoints
 
-### 1. After users interact and you collect feedback (likes 👍):
-```bash
-python retrain_from_feedback.py
-```
-- This updates `data/intents.json` and retrains the model automatically.
+### `POST /chat`
 
-
----
-
-## 🔥 Optional: Generate more training data from MongoDB
-
-```bash
-python prepare_data_from_mongo.py
+**Request:**
+```json
+{ "query": "Show me Toyota Vitz under 5 million" }
 ```
 
-- This will create realistic patterns like "Toyota Aqua 2024" for training.
+**Response:**
+```json
+{
+  "response": "Here are some Toyota Vitz available:",
+  "prob": 0.97,
+  "intent": "ask_brand_model",
+  "suggestions": [
+    {
+      "id": 1,
+      "model_name": "Vitz 2019",
+      "vehicle_name": "Toyota Vitz",
+      "year": 2019,
+      "price": 9500000,
+      "mileage": 60000
+    }
+  ]
+}
+```
+
+### `POST /feedback`
+
+**Request:**
+```json
+{
+  "query": "Any Toyota cars under 4 million?",
+  "response": "Here are some Toyota available:",
+  "predicted_intent": "ask_price_range",
+  "prob": 0.91,
+  "thumbs_up": false
+}
+```
+
+### `POST /retrain-now`
+
+Forces model retraining based on feedback data (after admin update).
 
 ---
 
-## 📊 Monitor Chatbot Performance
+## ⏰ Automating Daily Retraining
+
+Use a cron job or scheduler to run the retrain script:
 
 ```bash
-python feedback_tools.py
+0 0 * * * cd /path/to/project && .venv/bin/python retrain_daily.py
 ```
-- See top feedback messages and summaries!
 
-
----
-
-## 📚 Main Features
-
-- ✅ Dynamic MongoDB-powered vehicle answers
-- ✅ Smart fallback recovery if confidence low
-- ✅ Buyer intent detection (price, budget, seller, location, model year)
-- ✅ Train on real-world feedback
-- ✅ Easy to extend new intents, patterns, and models
+This will:
+- Update `intents.json` from admin-approved feedback
+- Retrain the model if required
+- Save the updated model
 
 ---
 
-## ✉️ Need Help?
-Feel free to contact the developer if you need assistance in production deployment, advanced intent tuning, or scaling your chatbot system! 🚀
+## ✨ Contributions
+
+Feel free to open issues or PRs for new features, model improvements, or bug fixes.
+
+---
+
+## 📜 License
+
+MIT License. See `LICENSE` file for details.
