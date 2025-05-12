@@ -86,16 +86,9 @@ def get_response(intent_tag, sentence):
                 vehicles = get_vehicles_by_brand_model(brand)
                 all_models = list(set(v["model_name"].lower() for v in vehicles if "model_name" in v))
 
-                stop_words = {
-                    "show", "me", "details", "about", "do", "you", "have", "any", "looking",
-                    "for", "the", "a", "an", "is", "there", "car", "vehicle", "model",
-                    "what", "are", "available"
-                }
+                stop_words = {"show", "me", "details", "about", "do", "you", "have", "any", "looking", "for", "the", "a", "an", "is", "there", "car", "vehicle", "model", "what", "are", "available"}
 
-                raw_keywords = [
-                    word for word in sentence_lower.split()
-                    if word not in stop_words and word not in brand.lower() and len(word) > 2
-                ]
+                raw_keywords = [word for word in sentence_lower.split() if word not in stop_words and word not in brand.lower() and len(word) > 2]
                 cleaned_keywords = lemmatize_words(raw_keywords)
 
                 matched_keywords = []
@@ -104,36 +97,25 @@ def get_response(intent_tag, sentence):
                     if match:
                         matched_keywords.append(match[0])
 
-                filtered = []
-                for v in vehicles:
-                    name_combo = (v.get("model_name", "") + " " + v.get("vehicle_name", "")).lower().replace("-", " ")
-                    if all(kw in name_combo for kw in matched_keywords):
-                        filtered.append(v)
+                filtered = [v for v in vehicles if all(kw in (v.get("model_name", "") + " " + v.get("vehicle_name", "")).lower().replace("-", " ") for kw in matched_keywords)]
 
                 if cleaned_keywords:
                     if filtered:
                         display_model = " ".join(matched_keywords).title()
                         return format_vehicle_results(filtered, brand + f" {display_model}")
                     else:
-                        readable_kw = " ".join(raw_keywords)
-                        return f"Sorry, no listings found for {brand} {readable_kw}."
+                        return f"Sorry, no listings found for {brand} {' '.join(raw_keywords)}."
                 else:
                     return format_vehicle_results(vehicles, brand)
 
             elif intent_tag == "ask_price_range":
-                # Normalize plural vehicle types
-                vehicle_type_map = {
-                    "cars": "car", "vans": "van", "suvs": "suv", "sedans": "sedan",
-                    "trucks": "truck", "hatchbacks": "hatchback", "crossovers": "crossover", "wagons": "wagon"
-                }
+                vehicle_type_map = {"cars": "car", "vans": "van", "suvs": "suv", "sedans": "sedan", "trucks": "truck", "hatchbacks": "hatchback", "crossovers": "crossover", "wagons": "wagon"}
                 sentence_lower = ' '.join([vehicle_type_map.get(word, word) for word in sentence_lower.split()])
-
                 price_range = extract_price_range(sentence_lower)
                 if not price_range:
                     return "Can you please specify the price range again?"
 
                 min_price, max_price = price_range
-
                 matched_brand = next((b for b in brands if b.lower() in sentence_lower), None)
                 matched_type = next((t for t in vehicle_types if t.lower() in sentence_lower), None)
 
@@ -149,13 +131,7 @@ def get_response(intent_tag, sentence):
 
                 else:
                     vehicles = get_vehicles_by_price_range(min_price, max_price)
-                    if not vehicles:
-                        return "Sorry, no vehicles found in that price range."
-                    formatted = [
-                        f"{v['brand_name']} {v['model_name']} {v.get('model_year', '')} - {safe_int(v.get('price', 0)):,} LKR"
-                        for v in vehicles[:5]
-                    ]
-                    return "Here are some vehicles within your budget:\n" + "\n".join(formatted)
+                    return format_vehicle_results(vehicles)
 
             elif intent_tag == "ask_cheapest":
                 brand = next((b for b in brands if b.lower() in sentence_lower), None)
@@ -169,24 +145,27 @@ def get_response(intent_tag, sentence):
                 for fuel in fuel_types:
                     if fuel in sentence_lower:
                         vehicles = get_vehicles_by_fuel(fuel)
-                        if vehicles:
-                            return f"These are the vehicles with {fuel} engines:\n" + \
-                                   "\n".join(f"{v['vehicle_name']} - {safe_int(v.get('price', 0)):,} LKR" for v in vehicles[:5])
-                        else:
-                            return f"Sorry, no {fuel} vehicles found."
+                        return format_vehicle_results(vehicles)
 
             elif intent_tag == "ask_by_vehicle_type":
                 for vtype in vehicle_types:
                     if vtype.lower() in sentence_lower:
                         vehicles = get_vehicles_by_type(vtype)
-                        if vehicles:
-                            return f"Here are some {vtype.upper()}s available:\n" + \
-                                   "\n".join(f"{v['vehicle_name']} - {safe_int(v.get('price', 0)):,} LKR" for v in vehicles[:5])
-                        else:
-                            return f"Sorry, no {vtype.upper()} vehicles found."
+                        return format_vehicle_results(vehicles)
 
             elif intent_tag == "ask_leasing":
                 return "Please contact the vehicle owner directly for leasing details."
+
+            elif intent_tag == "ask_by_location":
+                sentence_lower = sentence_lower.replace(" in ", " ").replace(" from ", " ")
+                locations = [loc for loc in get_available_locations() if loc and isinstance(loc, str)]
+                matched_location = next((loc for loc in locations if loc.lower() in sentence_lower), None)
+
+                if matched_location:
+                    vehicles = get_vehicles_by_location(matched_location)
+                    return format_vehicle_results(vehicles, brand=matched_location)
+                else:
+                    return "Please specify a valid city or location."
 
             return intent["responses"][0]
 
@@ -311,6 +290,16 @@ def get_response_with_suggestions(intent_tag, sentence):
 
             elif intent_tag == "ask_leasing":
                 return "Please contact the vehicle owner directly for leasing details.", []
+            
+            elif intent_tag == "ask_by_location":
+                locations = get_available_locations()
+                matched_location = next((loc for loc in locations if loc.lower() in sentence_lower), None)
+
+                if matched_location:
+                    vehicles = get_vehicles_by_location(matched_location)
+                    return format_response_with_suggestions(vehicles, brand=matched_location)
+                else:
+                    return "Please specify a valid city or location.", []
 
             return intent["responses"][0], []
 

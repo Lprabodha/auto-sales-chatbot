@@ -32,7 +32,8 @@
       ],
       "responses": [
         "Have a nice day!",
-        "Goodbye"
+        "Goodbye",
+        "Goodbye! 👋 Come back to AutoHub.lk anytime for great deals."
       ]
     },
     {
@@ -213,6 +214,23 @@
         "Please contact the vehicle owner directly for leasing details."
       ]
     },
+    {
+      "tag": "ask_by_location",
+      "patterns": [
+        "Show me cars in Galle",
+        "Find vehicles available in Colombo",
+        "Do you have any cars in Kandy?",
+        "List cars available in Negombo",
+        "Are there any cars for sale in Kurunegala?",
+        "Vehicles in Matara",
+        "Show cars near Galle",
+        "Find me cars in Anuradhapura"
+      ],
+      "responses": [
+        "Here are some vehicles available in {location}:"
+      ]
+    },
+    
     {
       "tag": "messing_around",
       "patterns": [
