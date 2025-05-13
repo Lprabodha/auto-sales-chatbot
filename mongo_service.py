@@ -51,12 +51,11 @@ def get_feedbacks_for_retraining():
     return list(feedback_collection.find({
         "checked_by_admin": True,
         "is_retrained": False,
-        "correct_intent": {"$exists": True}
+        "correct_intent": { "$exists": True }
     }))
 
 def mark_feedback_as_retrained(feedback_ids):
-    from bson.objectid import ObjectId
     feedback_collection.update_many(
-        {"_id": {"$in": [ObjectId(fb_id) for fb_id in feedback_ids]}},
+        {"_id": {"$in": feedback_ids}},
         {"$set": {"is_retrained": True}}
     )
