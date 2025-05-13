@@ -187,6 +187,16 @@ def get_response(intent_tag, sentence):
 
             elif intent_tag == "ask_leasing":
                 return "Please contact the vehicle owner directly for leasing details."
+            
+            elif intent_tag == "ask_by_location":
+                locations = get_available_locations()
+                matched_location = next((loc for loc in locations if loc.lower() in sentence_lower), None)
+
+                if matched_location:
+                    vehicles = get_vehicles_by_location(matched_location)
+                    return format_response_with_suggestions(vehicles, brand=matched_location)
+                else:
+                    return "Please specify a valid city or location.", []
 
             return intent["responses"][0]
 
@@ -311,6 +321,17 @@ def get_response_with_suggestions(intent_tag, sentence):
 
             elif intent_tag == "ask_leasing":
                 return "Please contact the vehicle owner directly for leasing details.", []
+            
+            elif intent_tag == "ask_by_location":
+                sentence_lower = sentence_lower.replace(" in ", " ").replace(" from ", " ")
+                locations = [loc for loc in get_available_locations() if loc and isinstance(loc, str)]
+                matched_location = next((loc for loc in locations if loc.lower() in sentence_lower), None)
+
+                if matched_location:
+                    vehicles = get_vehicles_by_location(matched_location)
+                    return format_vehicle_results(vehicles, brand=matched_location)
+                else:
+                    return "Please specify a valid city or location."
 
             return intent["responses"][0], []
 

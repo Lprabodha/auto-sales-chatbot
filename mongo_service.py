@@ -2,7 +2,7 @@ from pymongo import MongoClient
 from datetime import datetime
 
 client = MongoClient("mongodb+srv://lprabodha1998:SfXnuKZIecrv3TUJ@cluster0.e2m4j.mongodb.net/")
-db = client["riyasewana"]
+db = client["vehicle_prices"]
 collection = db["cars"]
 
 def get_vehicles_by_brand_model(brand, model=None):
@@ -25,6 +25,12 @@ def get_available_brands():
 
 def get_available_vehicle_types():
     return collection.distinct("vehicle_type")
+
+def get_vehicles_by_location(location):
+    return list(collection.find({"location": {"$regex": location, "$options": "i"}}))
+
+def get_available_locations():
+    return [loc for loc in collection.distinct("location") if isinstance(loc, str) and loc.strip()]
 
 feedback_collection = client.auto_sales_bot.feedback
 
