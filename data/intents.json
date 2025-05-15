@@ -73,7 +73,10 @@
         "Do you have toyota vitz",
         "what are the available Honda Civic?",
         "can you show me honda fit",
-        "looking for a used honda civic"
+        "looking for a used honda civic",
+        "What is the price of a Toyota Vitz?",
+        "What is the price of a Toyota AXIO?",
+        "What is the price of a BMW"
       ],
       "responses": [
         "We have several {brand} {model} listings. Here's what I found:"

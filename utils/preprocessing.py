@@ -4,10 +4,11 @@ from nltk.stem import PorterStemmer, WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 
 stemmer = PorterStemmer()
-lemmatizer = WordNetLemmatizer()
 
 nltk.download('punkt', quiet=True)
 nltk.download('wordnet', quiet=True)
+
+lemmatizer = WordNetLemmatizer()
 
 def preprocess(sentence):
     tokens = word_tokenize(sentence.lower())
