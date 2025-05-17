@@ -7,3 +7,4 @@ word2number
 fastapi
 uvicorn
 pydantic
+python-dotenv

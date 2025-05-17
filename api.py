@@ -4,7 +4,10 @@ from chatbot import predict_intent, get_response_with_suggestions
 from mongo_service import save_feedback
 from retrain_daily import retrain_from_feedback
 
-app = FastAPI()
+CONFIDENCE_THRESHOLD = 0.5
+API_VERSION = "v1"
+
+app = FastAPI(title="Auto Sales Chatbot API", version=API_VERSION)
 
 
 class ChatRequest(BaseModel):
