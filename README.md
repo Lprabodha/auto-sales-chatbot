@@ -100,11 +100,12 @@ Ensure MongoDB is running locally at `mongodb://localhost:27017`. Use Docker or 
   ```
 
 ### 5. Configure your .env file
-
+```
 MONGO_URI=mongodb://localhost:27017
 DB_NAME=auto_sales_bot
 MODEL_PATH=models/model.pth
 SECRET_KEY=your-secret-key
+```
 
 ### 6. Train the model (initial run)
 
