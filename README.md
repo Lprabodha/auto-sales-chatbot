@@ -3,7 +3,11 @@
 ![Python](https://img.shields.io/badge/python-3.13-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-ready-green)
 ![Open Source](https://img.shields.io/badge/license-MIT-green)
-
+![PyTorch](https://img.shields.io/badge/PyTorch-Enabled-EE4C2C?logo=pytorch)
+![MongoDB](https://img.shields.io/badge/MongoDB-Integrated-brightgreen?logo=mongodb)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
+![Made With Love](https://img.shields.io/badge/Made%20with-%E2%9D%A4-red)
 
 
 AutoBot is an AI-powered chatbot built using **PyTorch**, **FastAPI**, and **MongoDB** that helps users search and filter vehicles intelligently. It can handle queries related to brands, models, fuel types, price ranges, and more, and supports feedback collection for continuous improvement via scheduled model retraining.
