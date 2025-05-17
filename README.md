@@ -5,7 +5,6 @@
 ![Open Source](https://img.shields.io/badge/license-MIT-green)
 ![PyTorch](https://img.shields.io/badge/PyTorch-Enabled-EE4C2C?logo=pytorch)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Integrated-brightgreen?logo=mongodb)
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
 ![Made With Love](https://img.shields.io/badge/Made%20with-%E2%9D%A4-red)
 
