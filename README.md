@@ -1,5 +1,10 @@
 
 # 🚗 AutoBot – Intelligent Chatbot for Auto Sales
+![Python](https://img.shields.io/badge/python-3.13-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-ready-green)
+![Open Source](https://img.shields.io/badge/license-MIT-green)
+
+
 
 AutoBot is an AI-powered chatbot built using **PyTorch**, **FastAPI**, and **MongoDB** that helps users search and filter vehicles intelligently. It can handle queries related to brands, models, fuel types, price ranges, and more, and supports feedback collection for continuous improvement via scheduled model retraining.
 
@@ -176,6 +181,8 @@ This will:
 ## ✨ Contributions
 
 Feel free to open issues or PRs for new features, model improvements, or bug fixes.
+
+
 
 ---
 
