@@ -76,13 +76,20 @@ pip install -r requirements.txt
 
 Ensure MongoDB is running locally at `mongodb://localhost:27017`. Use Docker or install MongoDB natively.
 
-### 5. Train the model (initial run)
+### 5. Configure your .env file
+
+MONGO_URI=mongodb://localhost:27017
+DB_NAME=auto_sales
+MODEL_PATH=models/model.pth
+SECRET_KEY=your-secret-key
+
+### 6. Train the model (initial run)
 
 ```bash
 python train.py
 ```
 
-### 6. Start the API
+### 7. Start the API
 
 ```bash
 uvicorn api:app --reload
