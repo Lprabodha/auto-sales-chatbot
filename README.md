@@ -76,11 +76,11 @@ pip install -r requirements.txt
 
 Ensure MongoDB is running locally at `mongodb://localhost:27017`. Use Docker or install MongoDB natively.
 
-  ## Sample Data & Retraining
+  #### Sample Data & Retraining
 
     🚗 Sample vehicle listings JSON: data/sample_vehicles.json
 
-  ## Import Sample Data to MongoDB
+  #### Import Sample Data to MongoDB
 
   ```
   mongoimport --uri "mongodb://localhost:27017" \
