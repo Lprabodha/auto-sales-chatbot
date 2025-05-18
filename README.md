@@ -27,7 +27,7 @@ AutoBot is an AI-powered chatbot built using **PyTorch**, **FastAPI**, and **Mon
 
 ## 🧰 Tech Stack
 
-- **Python 3.8+**
+- **Python 3.12+**
 - **PyTorch**
 - **FastAPI**
 - **MongoDB**
@@ -63,7 +63,7 @@ auto_sales_bot/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/auto_sales_bot.git
+git clone https://github.com/Lprabodha/auto-sales-chatbot
 cd auto_sales_bot
 ```
 
