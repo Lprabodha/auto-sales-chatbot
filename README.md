@@ -186,7 +186,16 @@ This will:
 
 Feel free to open issues or PRs for new features, model improvements, or bug fixes.
 
+---
 
+## 👨‍💻 Authors
+
+- Dewmina Udayashan 
+- Lahiru Prabodha
+
+---
+
+Happy coding! 😊
 
 ---
 
