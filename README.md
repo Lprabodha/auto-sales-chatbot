@@ -65,6 +65,8 @@ auto_sales_bot/
 ```bash
 git clone https://github.com/Lprabodha/auto-sales-chatbot
 cd auto_sales_bot
+
+git clone https://github.com/Lprabodha/auto-sales-chatbot-widget
 ```
 
 ### 2. Create & activate a virtual environment
